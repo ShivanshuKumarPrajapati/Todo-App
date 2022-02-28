@@ -1,0 +1,57 @@
+.CreateNote{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width:450px;
+    margin: auto;
+    height: 170px;
+    padding:1em;
+    box-shadow: 1px 0.1px 2px 1px black;
+    border-radius: 7px;
+}
+
+
+.titleInput
+{
+    width: 100%;
+    height: 2em;
+    font-size: x-large;
+    border:0;
+    padding:4px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.titleInput:focus{
+    outline: none;
+
+}
+.noteInput{
+    width: 100%;
+    font-size: 20px;
+    height: 80px;
+    resize: none;
+    padding:4px;
+    border: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.noteInput:focus{
+    outline:none;
+}
+
+.addBtn{
+    width:50px;
+    height: 35px;
+    color: salmon;
+    background-color: rgba(255, 255, 255,1);
+    position: relative;
+    left: 45%;
+    padding: 0;
+    margin-top: 4px;
+}
+
+@media screen and (max-width: 692px) {
+    .CreateNote {
+        width: 65%;
+    }
+}
