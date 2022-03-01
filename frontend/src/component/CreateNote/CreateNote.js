@@ -6,7 +6,7 @@ import './CreateNote.css';
 function CreateNote() {
 
     const handleClick = () => {
-        console.log("sakshi");
+        console.log("hello");
     }
     return (
         <div className='CreateNote'>
