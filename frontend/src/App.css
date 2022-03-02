@@ -2,3 +2,43 @@
   text-align: center;
   padding:0px;
 }
+
+.alertMssg{
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 2px;
+  padding-left:12px;
+  padding-right: 0px;
+  position: relative;
+  width: max-content;
+  margin: auto;
+  margin-bottom: -27px;
+  font-family: 'Times New Roman', Times, serif;
+  opacity: 0;
+}
+
+.alertDanger{
+  background-color: rgba(253, 86, 8, 0.4);
+  color: red;
+  border: 1px solid red;
+}
+
+.alertSuccess{
+  background-color: rgba(149, 240, 13,0.4);
+  color: green;
+  border: 1px solid green;
+}
+
+.downArrow{
+  position: relative;
+  top:17px;
+  left:-50%;
+}
+
+
+.showAlert{
+  transform: translateY(-40px);
+  margin-top: 4em;
+  opacity: 1;
+}
+

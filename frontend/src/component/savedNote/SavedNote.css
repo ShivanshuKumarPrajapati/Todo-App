@@ -1,35 +1,41 @@
 .tilesWrap {
-display: flex;
+/* display: flex;
 flex-wrap: wrap;
-justify-content: center;
-align-items: center;
+justify-content: center; */
+float: left;
     
 }
 
 .tilesWrap h1{
-	margin-bottom: .5em;
+	margin-bottom: .4em;
 	margin-top: -33px;
+	align-self:center;
 }
+
+.notePara{
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	min-height: auto;
+	max-height: 215px;
+	overflow: auto;
+}
+
 .tilesWrap li {
 	display: grid;
     grid-template-columns: minmax(150px,200px);
+	align-items:stretch;
 	padding: 20px 20px 10px;
 	position: relative;
-	vertical-align: top;
 	margin: 20px;
     margin-left: 20px;
     float: left;
 	font-family: 'helvetica', san-serif;
-	min-height: 25vh;
 	background: #262a2b;
 	border: 1px solid #252727;
 	text-align: left;
-	height: 300px;
 	color: white;
 
 }
-
-
 
 .tilesWrap li:before {
 	content: '';
@@ -44,10 +50,7 @@ align-items: center;
 	
 }
 
-.tilesWrap p{
-	overflow-y: auto;
-	overflow-x: hidden;
-}
+
 
 .editIcon{
 	height: 20px;
@@ -89,10 +92,6 @@ align-items: center;
 	
 }
 
-.tilesWrap .li:nth-child(4n+2) > .editIcon::before{
-	background: red;
-}
-
 .tilesWrap li:hover .button {
 	transform: translateY(3px);
 	opacity: 1;
@@ -123,8 +122,8 @@ align-items: center;
 
 .tilesWrap li:nth-child(4n+1):before {
 background: #52D017;
-background: -webkit-linear-gradient(to right, #d8a037, #52D017);
-background: linear-gradient(to right, #d8a037, #52D017);
+background: -webkit-linear-gradient(to right, #F4A460, #52D017);
+background: linear-gradient(to right, #F4A460, #52D017);
 }
 .tilesWrap li:nth-child(4n+2):before {
 background: #f2709c;
