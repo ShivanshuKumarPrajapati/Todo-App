@@ -26,9 +26,19 @@ router.route('/update').post((req, res) => {
     
     todoList.findOneAndUpdate({ id: req.body.id }, { title: req.body.title, note: req.body.note })
         .then(() => res.json("Item updated successfully"))
-        .catch(err => res.status(400).json(errr));
+        .catch(err => res.status(400).json(err));
     
     res.redirect("/");
+})
+
+router.route('/:id').delete((req, res) => {
+    const Id = req.params.id;
+    todoList.deleteOne({ id: Id }, function (err) {
+        if (err)
+            res.json(err)
+        else
+            res.json("Successfully deleted item");
+    })
 })
     
 
