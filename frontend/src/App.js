@@ -1,5 +1,6 @@
 import './App.css';
 import { useState,useEffect } from 'react';
+import axios from 'axios'
 import { BsCaretDownFill } from "react-icons/bs";
 
 import Header from './component/header/Header'
@@ -14,8 +15,21 @@ function App() {
   const [alertClass, setAlertClass] = useState("");
   
   function addItem(note) {
-    setTodoList([...todoList, note]);
-  }
+    // setTodoList([...todoList, note]);
+      axios
+      .post("http://localhost:5000/add", note)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+  
+
+  useEffect(() => {
+      axios
+        .get("http://localhost:5000/", { crossdomain: true })
+        .then((response) => {
+          setTodoList(response.data)
+        });
+  })
 
   function handleAlertValue(){
     return (
@@ -26,12 +40,12 @@ function App() {
   }
 
   useEffect(()=>{
-    if (alert == 0)
+    if (alert === 0)
     {
       setAlertMssg('Enter Data');
       setAlertClass('showAlert alertDanger')
       }
-    else if (alert == 1)
+    else if (alert === 1)
     {
       setAlertMssg("Saved Successfully");
       setAlertClass('showAlert alertSuccess');
@@ -39,20 +53,18 @@ function App() {
     let clean = handleAlertValue();
     return () => clearInterval(clean);
   },[alert])
-  
-  console.log(alert);
 
   return (
     <div className="App">
       <Header />
-      {alert == -1 ? " ": 
+      {alert === -1 ? " ": 
         <p className={`alertMssg ${alertClass}`}>
           {alertMssg} <BsCaretDownFill className="downArrow" />
         </p>
       }
 
       <CreateNote addItem={addItem} setAlert={setAlert} />
-      {todoList.length == 0 ? "" : <SavedNote todoList={todoList} />}
+      {todoList.length === 0 ? "" : <SavedNote todoList={todoList} />}
     </div>
   );
 }
