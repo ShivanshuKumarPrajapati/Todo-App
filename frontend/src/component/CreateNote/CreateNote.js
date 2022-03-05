@@ -1,12 +1,21 @@
 import React from 'react'
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useState } from 'react';
+import axios from 'axios';
 
 import './CreateNote.css';
 
-function CreateNote({addItem,setAlert}) {
+var updateData;
+
+export function editContent(item) {
+    updateData(item);
+}
+
+function CreateNote({ addItem, setAlert}) {
 
     const [todo, setTodo] = useState({ title: "", note: "" });
+    const [editFlag, setEditFlag] = useState(0);
+    const [updateId, setUpdateId] = useState('');
 
     const handleChange = (e) => {
         const key = e.target.name;
@@ -15,14 +24,31 @@ function CreateNote({addItem,setAlert}) {
         setTodo({...todo,[key]:value})
     }
 
+    updateData = (item) => {
+        setEditFlag(1);
+        setUpdateId(item.id);
+        setTodo({ title: item.title, note: item.note });
+    }
+
+
     const handleClick = (e) => {
-        const newTodo = { ...todo, id: new Date().getTime().toString() };
-        if (newTodo.note && newTodo.title) {
+        if (todo.note && todo.title && editFlag)
+        {
+            const newTodo = { ...todo, id: updateId };
+            axios
+            .post("http://localhost:5000/update", newTodo)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+            setEditFlag(0);
+            setUpdateId('');
+            setTodo({ title: "", note: "" });
+
+        }
+        else if (todo.note && todo.title) {
+            const newTodo = { ...todo, id: new Date().getTime().toString() };
             addItem(newTodo);
             setAlert(1);
-        }
-        else
-            setAlert(0);
+        } else setAlert(0);
         setTodo({ title: '', note: '' });
         e.preventDefault();
     }

@@ -15,13 +15,13 @@ function App() {
   const [alertClass, setAlertClass] = useState("");
   
   function addItem(note) {
-    // setTodoList([...todoList, note]);
       axios
       .post("http://localhost:5000/add", note)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
-  
+
+
 
   useEffect(() => {
       axios
@@ -54,6 +54,7 @@ function App() {
     return () => clearInterval(clean);
   },[alert])
 
+  
   return (
     <div className="App">
       <Header />

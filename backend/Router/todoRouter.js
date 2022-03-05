@@ -22,5 +22,14 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json("Error: " + err));
 })
 
+router.route('/update').post((req, res) => {
+    
+    todoList.findOneAndUpdate({ id: req.body.id }, { title: req.body.title, note: req.body.note })
+        .then(() => res.json("Item updated successfully"))
+        .catch(err => res.status(400).json(errr));
+    
+    res.redirect("/");
+})
+    
 
 module.exports = router;
