@@ -21,7 +21,7 @@ app.use(express.json());
 mongoose.connect("mongodb://localhost:27017/TodoDB");
 
 const todoRouter = require('./Router/todoRouter');
-app.use('/', todoRouter);
+app.use('/home/', todoRouter);
 
 
 app.listen(5000, function(){

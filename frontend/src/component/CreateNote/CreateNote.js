@@ -36,8 +36,11 @@ function CreateNote({ addItem, setAlert}) {
         {
             const newTodo = { ...todo, id: updateId };
             axios
-            .post("http://localhost:5000/update", newTodo)
-            .then((res) => console.log(res))
+            .post("http://localhost:5000/home/update", newTodo)
+                .then((res) => {
+                    setAlert(1);
+                    console.log(res)
+                })
             .catch((err) => console.log(err));
             setEditFlag(0);
             setUpdateId('');
@@ -47,8 +50,9 @@ function CreateNote({ addItem, setAlert}) {
         else if (todo.note && todo.title) {
             const newTodo = { ...todo, id: new Date().getTime().toString() };
             addItem(newTodo);
-            setAlert(1);
-        } else setAlert(0);
+        }
+        else
+            setAlert(0);
         setTodo({ title: '', note: '' });
         e.preventDefault();
     }

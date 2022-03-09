@@ -9,7 +9,7 @@ import { editContent } from '../CreateNote/CreateNote';
 function noteList({ item }) {
     
     const delContent = (id) => {
-        axios.delete('http://localhost:5000/' + id)
+        axios.delete('http://localhost:5000/home/' + id)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
     }

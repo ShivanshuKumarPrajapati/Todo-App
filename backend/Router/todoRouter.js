@@ -28,7 +28,7 @@ router.route('/update').post((req, res) => {
         .then(() => res.json("Item updated successfully"))
         .catch(err => res.status(400).json(err));
     
-    res.redirect("/");
+    // res.redirect("/");
 })
 
 router.route('/:id').delete((req, res) => {

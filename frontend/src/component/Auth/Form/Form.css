@@ -1,0 +1,17 @@
+.authInput{
+    width: 100%;
+    margin: 4px 2px;
+    font-size: large;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 5px;
+    padding:2px;
+    height: 45px;
+}
+
+.authForm{
+    margin:20px 2px;
+}
+
+.authInput:focus{
+    outline: none;
+}

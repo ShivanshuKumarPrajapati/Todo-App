@@ -1,0 +1,45 @@
+.Page{
+    display: grid;
+    place-items: center;
+    margin: auto;
+    height: 100vh;
+	
+}
+
+.auth li {
+	display: grid;
+    grid-template-columns: minmax(250px,300px);
+	align-items:stretch;
+	padding: 20px 20px 10px;
+	position: relative;
+	margin: 20px;
+    margin-left: 20px;
+    float: left;
+	font-family: 'helvetica', san-serif;
+	background: #262a2b;
+	background-image: url(./../../../public/to-do.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	text-align: left;
+	color: white;
+
+}
+
+
+.auth li:before {
+	content: '';
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	right: -2px;
+	bottom: -2px;
+	z-index: -1;
+	background: #fff;
+	transform: skew(2deg, 2deg);
+	
+}
+.auth li:nth-child(4n+1):before  {
+background: #ec1f63;
+background: -webkit-linear-gradient(to right, #a411ff, #ec1f63);
+background: linear-gradient(to right, #a411ff, #ec1f63);
+}
