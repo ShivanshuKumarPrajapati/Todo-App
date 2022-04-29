@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const todoList = require('./../todoSchema/Schema');
+const User = require('./../todoSchema/UserSchema')
 
 router.route('/').get((req, res) => {
-    todoList
+    User
         .find()
         .then((list) => res.json(list))
         .catch((err) => res.status(400).json("Error:" + err));
@@ -24,7 +24,7 @@ router.route('/add').post((req, res) => {
 
 router.route('/update').post((req, res) => {
     
-    todoList.findOneAndUpdate({ id: req.body.id }, { title: req.body.title, note: req.body.note })
+    User.findOneAndUpdate({ id: req.body.id }, { title: req.body.title, note: req.body.note })
         .then(() => res.json("Item updated successfully"))
         .catch(err => res.status(400).json(err));
     
