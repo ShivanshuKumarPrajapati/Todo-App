@@ -28,13 +28,14 @@ function Home() {
             });
         }
 
-        useEffect(() => {
+    useEffect(() => {
         axios
             .get("http://localhost:5000/home/", { crossdomain: true })
             .then((response) => {
-            setTodoList(response.data);
+                // setTodoList([response.data]);
+                console.log(response);
             });
-        });
+        },[]);
 
         function handleAlertValue() {
         return setInterval(() => {
@@ -54,7 +55,7 @@ function Home() {
         return () => clearInterval(clean);
         }, [alert]);
 
-        return (
+    return (
         <div>
             {" "}
             <Header />

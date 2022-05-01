@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 
 
 const todoSchema = new mongoose.Schema({
-    title: { type: String, reqiured: true },
-    note: { type: String, required: true },
-    id:{type:String,reqiured:true}
+    title: { type: String },
+    note: { type: String },
+    Note_id:{type:String}
 })
 
 // const todoList = mongoose.model('todoList', todoSchema);

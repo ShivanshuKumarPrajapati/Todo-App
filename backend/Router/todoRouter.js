@@ -11,15 +11,16 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     
-    const list = new todoList({
-        title: req.body.title,
-        note: req.body.note,
-        id:req.body.id,
-    })
+    console.log(req.body);
+    // const list = new todoList({
+    //     title: req.body.title,
+    //     note: req.body.note,
+    //     id:req.body.id,
+    // })
 
-    list.save()
-        .then(() => res.json("Item added successfully"))
-        .catch(err => res.status(400).json("Error: " + err));
+    // list.save()
+    //     .then(() => res.json("Item added successfully"))
+    //     .catch(err => res.status(400).json("Error: " + err));
 })
 
 router.route('/update').post((req, res) => {
