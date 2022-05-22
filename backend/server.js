@@ -4,12 +4,13 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
-
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT || '5000';
 
-app.use(cors());
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cors({ useCredentials: true }));
 app.use(function (req, res, next) {
 res.header("Access-Control-Allow-Origin", "*");
 res.header(
@@ -19,6 +20,7 @@ res.header(
 next();
 });
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 // express-session must be used before passport

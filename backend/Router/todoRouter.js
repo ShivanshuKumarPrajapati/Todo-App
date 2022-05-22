@@ -1,35 +1,60 @@
 const router = require('express').Router();
 const User = require('./../todoSchema/UserSchema')
 
+
 router.route('/').get((req, res) => {
-    User
-        .find()
-        .then((list) => res.json(list))
-        .catch((err) => res.status(400).json("Error:" + err));
+    const token = req.headers.token;
+
+    User.findOne({ _id: token }).
+        then((result) => {
+            res.json(result.list)
+        }).
+        catch(err => res.status(400).json("Unable to load Data"));
 })
 
 
 router.route('/add').post((req, res) => {
-    
-    console.log(req.body);
-    // const list = new todoList({
-    //     title: req.body.title,
-    //     note: req.body.note,
-    //     id:req.body.id,
-    // })
+    const listItem = {
+        title: req.body.title,
+        note: req.body.note,
+        id:req.body.id,
+    }
+    const token = req.headers.token;
 
-    // list.save()
-    //     .then(() => res.json("Item added successfully"))
-    //     .catch(err => res.status(400).json("Error: " + err));
+    User.findByIdAndUpdate({ _id: token }, {
+        $push:{list:listItem}
+    }).then(() => {
+        res.json("Iten added successfully")
+    })
+        .catch(err => {
+            console.log(err)
+            res.status(400).json(err)
+        });
 })
 
 router.route('/update').post((req, res) => {
-    
-    User.findOneAndUpdate({ id: req.body.id }, { title: req.body.title, note: req.body.note })
-        .then(() => res.json("Item updated successfully"))
-        .catch(err => res.status(400).json(err));
-    
-    // res.redirect("/");
+    const token = req.headers.token;
+
+    User.findById(token).then((user) => {
+        const list = user.list.id(req.body.id);
+        list.set(req.body);
+
+        return user.save();
+    }).then(() => res.json("Item updated successfully"))
+        .catch(err => res.status(400).send(err));
+
+    // User.findByIdAndUpdate({ _id: token, "list._id": req.body.id }, {
+    //     "$set": {
+    //         "list.$.title": req.body.title,
+    //         "list.$.note": req.body.note
+    //     }
+    // })
+    //     .then((result) => {
+    //         console.log(result);
+    //         res.json("Item updated successfully")
+    //     })
+    //     .catch(err => res.status(400).json(err));
+
 })
 
 router.route('/:id').delete((req, res) => {

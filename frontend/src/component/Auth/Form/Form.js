@@ -10,7 +10,7 @@ export function handleClick(val,e) {
     handleSubmit(val,e);
 }
 
-function Form({flag,setFlag}) {
+function Form({flag,setFlag,childfxn,setToken}) {
 
     const [authData, setAuthData] = useState({ email: '', password: '' })
     
@@ -22,41 +22,47 @@ function Form({flag,setFlag}) {
         setAuthData({...authData,[key]:value})
     }
 
+    childfxn.current = () => {
+        setAuthData({ username: "", password: "" });
+    }
     handleSubmit = (val, e) => {
             if (flag === 1) {
-            if (val == 1) {
+            if (val === 1) {
                 axios
                 .post("http://localhost:5000/login", authData)
                     .then((res) => {
-                        setAuthData({ email: "", password: "" });
+                        setAuthData({ username: "", password: "" });
                         if (res.data === 1)
                             navigate('/home/');
                     })
                 .catch((err) => {
                     console.log(err);
-                    setAuthData({ email: "", password: "" });
+                    setAuthData({username: "", password: "" });
                 });
             }
             } else {
             axios
                 .post("http://localhost:5000/signUp", authData)
                 .then((res) => {
-                    setAuthData({ email: "", password: "" });
-                    if (res.data === 1)
-                        navigate('/home/');
+                    setAuthData({ username: "", password: "" });
+                    if (res.status === 200) {
+                        setToken(res.data);
+                        navigate('/home')
+                    }
                 })
                 .catch((err) => {
-                setAuthData({ email: "", password: "" });
+                setAuthData({ username: "", password: "" });
                 setFlag(1);
                 console.log(err);
                 });
         }
             e.preventDefault();
-        };
+    };
+    
     
     return (
         <form className='authForm'>
-            <input className='authInput' type="email" placeholder='Enter email' name='email' value={authData.email} onChange={handleChange} required />
+            <input className='authInput' type="email" placeholder='Enter email' name='username' value={authData.username} onChange={handleChange} required />
             <input className='authInput' type="password" name="password" placeholder='Password' value={authData.password} onChange={handleChange} />
     </form>
     )

@@ -5,17 +5,27 @@ import axios from 'axios';
 
 import './CreateNote.css';
 
+
 var updateData;
 
 export function editContent(item) {
+    console.log(item)
     updateData(item);
 }
+
+export function  accessToken (){
+        const tokenString = sessionStorage.getItem("token");
+        const userToken = JSON.parse(tokenString);
+        return userToken;
+    };
 
 function CreateNote({ addItem, setAlert}) {
 
     const [todo, setTodo] = useState({ title: "", note: "" });
     const [editFlag, setEditFlag] = useState(0);
     const [updateId, setUpdateId] = useState('');
+
+    
 
     const handleChange = (e) => {
         const key = e.target.name;
@@ -25,8 +35,9 @@ function CreateNote({ addItem, setAlert}) {
     }
 
     updateData = (item) => {
+        console.log(item._id);
         setEditFlag(1);
-        setUpdateId(item.id);
+        setUpdateId(item._id);
         setTodo({ title: item.title, note: item.note });
     }
 
@@ -34,9 +45,13 @@ function CreateNote({ addItem, setAlert}) {
     const handleClick = (e) => {
         if (todo.note && todo.title && editFlag)
         {
+            const config = {
+                headers:{token:accessToken().id},
+            }
+            console.log(updateId);
             const newTodo = { ...todo, id: updateId };
             axios
-            .post("http://localhost:5000/home/update", newTodo)
+            .post("http://localhost:5000/home/update", newTodo,config)
                 .then((res) => {
                     setAlert(1);
                     console.log(res)
@@ -48,11 +63,15 @@ function CreateNote({ addItem, setAlert}) {
 
         }
         else if (todo.note && todo.title) {
-            const newTodo = { ...todo, id: new Date().getTime().toString() };
+            const newTodo = {
+                ...todo,
+                id: new Date().getTime().toString()
+            };
             addItem(newTodo);
         }
-        else
+        else {
             setAlert(0);
+        }
         setTodo({ title: '', note: '' });
         e.preventDefault();
     }

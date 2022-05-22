@@ -3,9 +3,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BsCaretDownFill } from "react-icons/bs";
 
+
 import Header from "./component/header/Header";
 import CreateNote from "./component/CreateNote/CreateNote";
 import SavedNote from "./component/savedNote/SavedNote";
+import { accessToken } from './component/CreateNote/CreateNote';
+
 function Home() {
 
         const [todoList, setTodoList] = useState([]);
@@ -13,29 +16,22 @@ function Home() {
         const [alertMssg, setAlertMssg] = useState("");
         const [alertClass, setAlertClass] = useState("");
 
-    
-        function addItem(note) {
+    function addItem(note) {
+        const config = {
+            headers: { token: accessToken().id }
+        };
         axios
-            .post("http://localhost:5000/home/add", note)
+            .post("http://localhost:5000/home/add", note,config)
             .then((res) => {
                 console.log(res);
                 setAlert(1);
             })
             .catch((err) => {
+                setAlert(-2);
                 setAlertMssg('Error. Try again');
-                setAlert(0);
                 console.log(err);
             });
         }
-
-    useEffect(() => {
-        axios
-            .get("http://localhost:5000/home/", { crossdomain: true })
-            .then((response) => {
-                // setTodoList([response.data]);
-                console.log(response);
-            });
-        },[]);
 
         function handleAlertValue() {
         return setInterval(() => {
@@ -46,14 +42,45 @@ function Home() {
         useEffect(() => {
             if (alert === 0 ) {
             setAlertMssg("Enter Data");
-            setAlertClass("showAlert alertDanger");
+                setAlertClass("showAlert alertDanger");
+                setTimeout(() => {
+                    setAlert(-1);
+                    setAlertMssg('');
+                }, 2000);
         } else if (alert === 1) {
             setAlertMssg("Saved Successfully");
-            setAlertClass("showAlert alertSuccess");
+                setAlertClass("showAlert alertSuccess");
+                    setTimeout(() => {
+                        setAlert(-1);
+                        setAlertMssg('');
+                    }, 2000);
+            }
+            else if (alert === -2) {
+                setAlertMssg("Server Error. Try again later");
+                setAlertClass("showAlert alertDanger");
+                setTimeout(() => {
+                    setAlert(-1);
+                    setAlertMssg('');
+                }, 2000);
         }
         let clean = handleAlertValue();
         return () => clearInterval(clean);
         }, [alert]);
+
+    useEffect(() => {
+        const config = {
+            headers: { token: accessToken().id },
+            crossdomain: true,
+        };
+        axios
+            .get("http://localhost:5000/home/", config)
+            .then((response) => {
+            setTodoList(response.data);
+            }).catch(err => {
+                setAlert(-2);
+                setAlertMssg(err);
+            });
+        });
 
     return (
         <div>

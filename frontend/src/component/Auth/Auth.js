@@ -1,36 +1,21 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect,useRef } from 'react';
 
 import './Auth.css';
-
-import axios from 'axios';
 
 import Header from './Header/Header'
 import Form from './Form/Form'
 import Button from './Button/Button.js'
 
 
-function Login() {
+function Login({setToken}) {
     const [text, setText] = useState("Login");
     const [flag, setFlag] = useState(1);
 
-    const navigate = useNavigate();
+    const childfxn = useRef(null);
 
     useEffect(() => {
-        axios
-        .get("http://localhost:5000/", { crossdomain: true })
-        .then((res) => {
-            if (res.data === 1) {
-                navigate('/home/') 
-            } else {
-            console.log(res);
-            }
-        })
-        .catch((err) => console.log(err));
-    }, []);
-
-    useEffect(() => {
+        childfxn.current();
         if (flag === 1) setText("Login");
         else setText("Sign up");
     }, [flag]);
@@ -40,7 +25,7 @@ function Login() {
         <ul className="auth">
             <li>
             <Header flag={flag} setFlag={setFlag} />
-            <Form flag={flag} setFlag={setFlag} />
+                    <Form flag={flag} setFlag={setFlag} childfxn={childfxn} setToken={setToken}/>
             <Button text={text} />
             </li>
         </ul>

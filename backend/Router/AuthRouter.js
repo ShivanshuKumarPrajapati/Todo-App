@@ -3,30 +3,39 @@ const express = require('express');
 const Router = require('express').Router();
 const passportLocalMongoose = require('passport-local-mongoose');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt')
 
 const User = require("./../todoSchema/UserSchema");
 
 Router.route('/').get((req, res) => {
     if (req.isAuthenticated()) {
-    res.json(1);
+        res.json(1);
     }
-    else
-        res.json()
+    else {
+        res.json(0)
+    }
+
 })
 
 
 // CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
 passport.use(User.createStrategy());
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
+        done(err, user);
+    });
+});
 
 Router.route("/signUp").post((req, res) => {
-    console.log(req.body.email);
-    console.log(req.body.password);
-    User.register({
-        email: req.body.email,
-    },
+    User.register(new User({
+        username: req.body.username,
+    }),
         req.body.password,
         function (err, user) {
         if (err) {
@@ -34,7 +43,9 @@ Router.route("/signUp").post((req, res) => {
             res.redirect("/");
         } else {
             passport.authenticate("local")(req, res, function () {
-                res.json(1);
+                res.status(200).json({
+                    id: user._id
+                });
             });
         }
         }
@@ -43,7 +54,7 @@ Router.route("/signUp").post((req, res) => {
 
 Router.route("/login").post((req, res) => {
     const user = new User({
-        email: req.body.email,
+        username: req.body.username,
         password: req.body.password,
     });
 
