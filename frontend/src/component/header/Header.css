@@ -1,12 +1,81 @@
 .header{
-    background-color: salmon;
+    background-color: black;
     margin-bottom: 2em;
-    height: 80px;
-    display: flex;
+    height: auto;
+    padding:15px;
+    display: grid;
+    grid-template-columns: minmax(80%,200px) minmax(18%,90px);
     justify-content: space-around;
 
 }
 .heading{
-    border:3xp solid black;
-    font-size: 45px;
+    margin:0px;
+    padding:0px;
+    padding-left: 25%;
+    color: white;
+    text-align: center;
+    font-size: 55px;
+    font-family:sans-serif;
 }
+
+.userIcon{
+    margin-top: 10px;
+    color: white;
+}
+.userBtn{
+    background-color: transparent !important;
+}
+
+
+.userDetail{
+    position:absolute;
+    border-radius: 5px;
+    margin-left:1%;
+    margin-right: 1%;
+    display: grid;
+    grid-template-columns: minmax(80px,170px);
+    padding:4px ;
+    padding-bottom: 5px;
+    overflow: hidden;
+    background-color: black;
+    transition: all 0.2s linear;
+    color:white;
+}
+
+
+.userPara{
+    margin: 2px;
+    padding-bottom: 0.3em;
+    border-bottom:2px solid rgba(255, 255, 255, 0.976)
+}
+
+.logoutBtn{
+    background-color: transparent;
+    color: white;
+    font-size: large;
+    font-weight:bolder;
+    margin: auto;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+.logoutBtn:hover{
+    background-color: rgba(255, 255, 255, 0.572);
+    color:black;
+}
+
+@media screen and (max-width:800px) {
+    .userDetail{
+        margin-left: 0px;
+    }
+    
+}
+
+@media screen and (max-width:500px) {
+    .heading{
+        padding-left: 8%;
+    }
+    
+}
+

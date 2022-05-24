@@ -53,8 +53,8 @@ function CreateNote({ addItem, setAlert}) {
             axios
             .post("http://localhost:5000/home/update", newTodo,config)
                 .then((res) => {
-                    setAlert(1);
-                    console.log(res)
+                    setAlert(2);
+                    console.log(res);
                 })
             .catch((err) => console.log(err));
             setEditFlag(0);

@@ -4,7 +4,6 @@ import axios from 'axios';
 import './Form.css'
 import { useNavigate } from 'react-router-dom';
 
-
 var handleSubmit;
 export function handleClick(val,e) {
     handleSubmit(val,e);
@@ -44,9 +43,10 @@ function Form({flag,setFlag,childfxn,setToken}) {
             axios
                 .post("http://localhost:5000/signUp", authData)
                 .then((res) => {
-                    setAuthData({ username: "", password: "" });
+                    setAuthData({ username: "", password: "" });                    
                     if (res.status === 200) {
                         setToken(res.data);
+                        console.log(res.data)
                         navigate('/home')
                     }
                 })

@@ -1,8 +1,9 @@
 .tilesWrap {
-/* display: flex;
-flex-wrap: wrap;
-justify-content: center; */
-float: left;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items:flex-start;
+	float: left;
     
 }
 
@@ -22,7 +23,7 @@ float: left;
 
 .tilesWrap li {
 	display: grid;
-    grid-template-columns: minmax(150px,200px);
+    grid-template-columns: minmax(100px,215px) !important;
 	align-items:stretch;
 	padding: 20px 20px 10px;
 	position: relative;

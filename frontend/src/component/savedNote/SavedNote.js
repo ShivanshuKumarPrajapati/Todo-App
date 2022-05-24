@@ -2,7 +2,7 @@ import React from 'react'
 import Note from './noteList'
 import './SavedNote.css';
 
-function SavedNote({ todoList,editContent }) {
+function SavedNote({ todoList,setAlert }) {
   
   return (
     <div>
@@ -11,7 +11,7 @@ function SavedNote({ todoList,editContent }) {
           todoList.map(item => {
             return (
               <li key={item.id}>
-                <Note item={item} editContent={editContent}/>
+                <Note item={item} setAlert={setAlert}/>
               </li>
             );
           })

@@ -1,11 +1,10 @@
 import './App.css';
-import { BrowserRouter as Router,Link , Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router , Route, Routes } from "react-router-dom";
 
 import Home from './Home'
 import Auth from './component/Auth/Auth';
 import PageNotFound from './component/ErrorPage/PageNotFound';
 import useToken from './useToken';
-import { accessToken } from './component/CreateNote/CreateNote';
 import ProtectedRoute from './ProtectedRoute';
 
 function App() {

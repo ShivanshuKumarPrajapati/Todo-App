@@ -43,28 +43,18 @@ router.route('/update').post((req, res) => {
     }).then(() => res.json("Item updated successfully"))
         .catch(err => res.status(400).send(err));
 
-    // User.findByIdAndUpdate({ _id: token, "list._id": req.body.id }, {
-    //     "$set": {
-    //         "list.$.title": req.body.title,
-    //         "list.$.note": req.body.note
-    //     }
-    // })
-    //     .then((result) => {
-    //         console.log(result);
-    //         res.json("Item updated successfully")
-    //     })
-    //     .catch(err => res.status(400).json(err));
-
 })
 
 router.route('/:id').delete((req, res) => {
-    const Id = req.params.id;
-    todoList.deleteOne({ id: Id }, function (err) {
-        if (err)
-            res.json(err)
-        else
-            res.json("Successfully deleted item");
-    })
+    const token = req.headers.token;
+
+    User.findById(token)
+        .then((user) => {
+            user.list.pull({ _id: req.params.id });
+            return user.save();
+        })
+        .then(() => res.json("Deleted successfully"))
+        .catch((err) => res.status(400).send(err));
 })
     
 

@@ -44,7 +44,9 @@ Router.route("/signUp").post((req, res) => {
         } else {
             passport.authenticate("local")(req, res, function () {
                 res.status(200).json({
-                    id: user._id
+                    id: user._id,
+                    username:user.username
+
                 });
             });
         }
@@ -70,7 +72,7 @@ Router.route("/login").post((req, res) => {
 
 Router.route("/logout").get((req, res) => {
     req.logOut();
-    res.redirect("/");
+    res.status(200).json('User logout successsfully');
 });
 
 module.exports = Router

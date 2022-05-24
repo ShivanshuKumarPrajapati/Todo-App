@@ -62,7 +62,23 @@ function Home() {
                     setAlert(-1);
                     setAlertMssg('');
                 }, 2000);
-        }
+            }
+            else if (alert === 2) {
+                setAlertClass("showAlert alertSuccess");
+                setAlertMssg('Updated Successfully');
+                setTimeout(() => {
+                    setAlert(-1);
+                    setAlertMssg("");
+                }, 2000);
+            }
+            else if (alert === 3) {
+                setAlertClass("showAlert alertSuccess");
+                setAlertMssg("Deleted Successfully");
+                setTimeout(() => {
+                setAlert(-1);
+                setAlertMssg("");
+                }, 2000);
+            }
         let clean = handleAlertValue();
         return () => clearInterval(clean);
         }, [alert]);
@@ -75,12 +91,13 @@ function Home() {
         axios
             .get("http://localhost:5000/home/", config)
             .then((response) => {
+                console.log(response.data);
             setTodoList(response.data);
             }).catch(err => {
                 setAlert(-2);
                 setAlertMssg(err);
             });
-        });
+        },[alert]);
 
     return (
         <div>
@@ -93,8 +110,8 @@ function Home() {
                 {alertMssg} <BsCaretDownFill className="downArrow" />
             </p>
             )}
-            <CreateNote addItem={addItem} setAlert={setAlert} />
-            {todoList.length === 0 ? "" : <SavedNote todoList={todoList} />}
+            <CreateNote addItem={addItem} setAlert={setAlert}/>
+            {todoList.length === 0 ? "" : <SavedNote todoList={todoList} setAlert={setAlert} />}
         </div>
         );
 }
