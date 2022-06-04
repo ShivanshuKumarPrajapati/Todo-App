@@ -57,14 +57,21 @@ function Header() {
     <div className="header">
       <h1 className="heading">Todo App</h1>
       <div className='headerChild'>
-      <button className={`userBtn`} onClick={showDetail}>
-        <FaRegUser size={25} className="userIcon" />
+        <button className={`userBtn`} onClick={showDetail}>
+          <FaRegUser size={25} className="userIcon" />
         </button>
-        <div className='userDetail' ref={detailContainerRef} >
-          <p className='userPara' ref={paraHeight}>signed in as {username}</p>
-        <button className='logoutBtn' ref={btnHeight} onClick={() => handleLogout()}>Log out</button>
-      </div>
-
+        <div className="userDetail" ref={detailContainerRef}>
+          <p className="userPara" ref={paraHeight}>
+            Signed in as <br/>{username}
+          </p>
+          <button
+            className="logoutBtn"
+            ref={btnHeight}
+            onClick={() => handleLogout()}
+          >
+            Log out
+          </button>
+        </div>
       </div>
     </div>
   );

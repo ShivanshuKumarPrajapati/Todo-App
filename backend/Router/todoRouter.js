@@ -4,7 +4,6 @@ const User = require('./../todoSchema/UserSchema')
 
 router.route('/').get((req, res) => {
     const token = req.headers.token;
-
     User.findOne({ _id: token }).
         then((result) => {
             res.json(result.list)

@@ -43,3 +43,30 @@ background: #ec1f63;
 background: -webkit-linear-gradient(to right, #a411ff, #ec1f63);
 background: linear-gradient(to right, #a411ff, #ec1f63);
 }
+
+.errmssg{
+	margin-top: 20px;
+	color: white; 
+	position: absolute;
+	left:8%;
+	top:23%;
+	height: 0px;
+	text-align: center;
+	font-size:small;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	transition: all 0.2s linear;
+	
+}
+
+.showErrmssg{
+	transform: translateY(-16px);
+	transition: all 0.2s linear;
+	height: auto;
+	display: block;
+	text-align: center;
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	font-size: small;
+	width: 90%;
+	
+	
+}

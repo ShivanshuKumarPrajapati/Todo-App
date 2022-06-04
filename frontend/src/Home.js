@@ -23,12 +23,10 @@ function Home() {
         axios
             .post("http://localhost:5000/home/add", note,config)
             .then((res) => {
-                console.log(res);
                 setAlert(1);
             })
             .catch((err) => {
                 setAlert(-2);
-                setAlertMssg('Error. Try again');
                 console.log(err);
             });
         }
@@ -91,8 +89,7 @@ function Home() {
         axios
             .get("http://localhost:5000/home/", config)
             .then((response) => {
-                console.log(response.data);
-            setTodoList(response.data);
+                setTodoList(response.data);
             }).catch(err => {
                 setAlert(-2);
                 setAlertMssg(err);
